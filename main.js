@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import "./style.css";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import gsap from "gsap";
+
 const scene = new THREE.Scene();
 
 // size control for window
@@ -11,7 +13,7 @@ const size = {
 
 // add donut
 const geometry = new THREE.SphereGeometry(15, 32, 16);
-const material = new THREE.MeshStandardMaterial({ color: 0xffff00 });
+const material = new THREE.MeshStandardMaterial({ color: 0xffff00, roughness: 0.4 });
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
@@ -62,3 +64,9 @@ const loop = () => {
 }
 
 loop()
+
+// timeline animation
+const timeline = gsap.timeline({defaults:{duration: 1}})
+timeline.fromTo(sphere.scale, {z:0, x:0, y:0}, {z:1, x:1, y:1})
+timeline.fromTo("nav", {y: "-100%"}, {y:"0%"})
+timeline.fromTo(".title", {opacity: 0}, {opacity: 1})
